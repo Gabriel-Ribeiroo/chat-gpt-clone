@@ -3,19 +3,25 @@
 import { useState } from 'react'
 
 import Sidebar from '@/components/Sidebar'
+import Header from '@/components/Header'
 
 export default function Home() {
-  const [isSidebarOpened, setIsSidebarOpened] = useState(true)
+  const [isSidebarOpened, setIsSidebarOpened] = useState(false)
 
-	const handleCloseSidebarClick = () => {
-		setIsSidebarOpened(false)
-	}
+	const handleCloseSidebarClick = () => setIsSidebarOpened(false)
+	
+	const handleOpenSidebarClick = () => setIsSidebarOpened(true)
 	
 	return (
-		<main className="flex min-h-screen bg-gpt-gray">
+		<div className="flex min-h-screen bg-gpt-gray">
 			<Sidebar isOpened={isSidebarOpened} handleCloseSidebarClick={handleCloseSidebarClick}>
 				<div className="w-16 h-96">...</div>
 			</Sidebar>
-		</main>
+
+			<div className="flex flex-col w-full">
+				<Header handleOpenSidebarClick={handleOpenSidebarClick} />
+			</div>
+			
+		</div>
 	)
 }
