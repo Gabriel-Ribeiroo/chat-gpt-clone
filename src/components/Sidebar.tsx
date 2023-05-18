@@ -17,7 +17,7 @@ export default function Sidebar({ isOpened, handleCloseSidebarClick, children }:
 		>
 
 			<div 
-				className={`flex w-screen transition-all duration-300 h-screen 
+				className={`flex w-full transition-all duration-300 h-screen
 				${isOpened ? 'ml-0' : '-ml-96'} md:ml-0`}
 			>
 
