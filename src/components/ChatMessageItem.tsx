@@ -14,14 +14,14 @@ export default function ChatMessageItem({ message }: Props) {
 
 				<div 
 					className={`w-8 h-8 flex justify-center items-center rounded
-					ml-4 ${message.author === 'me' ? 'bg-blue-900' : 'bg-green-400'}`}
+					ml-4 ${message.author === 'me' ? 'bg-blue-900' : 'bg-green-500/75'}`}
 				>
 					{message.author === 'me' && <UserIcon width={24} height={24} />}
 					{message.author === 'ai' && <GPTIcon />}
 				</div>
 
 				<div className="flex-1 text-base whitespace-pre-wrap">
-					{message.body}
+					<p>{message.body}</p>
 				</div>
 
 			</div>
