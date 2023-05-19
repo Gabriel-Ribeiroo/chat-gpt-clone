@@ -9,7 +9,7 @@ interface Props {
 
 export default function ChatArea({ chat }: Props) {
 	return (
-		<main className="overflow-y-scroll">
+		<main className={`overflow-y-auto flex-1 ${!chat && 'flex items-center justify-center'}`}>
 			{!chat && <ChatPlaceholder />}
 
 			{chat && chat.messages.map(message => (
