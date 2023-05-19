@@ -13,7 +13,7 @@ export default function Sidebar({ isOpened, handleCloseSidebarClick, children }:
 	return (
 		<aside 
 			className={`fixed top-0 bottom-0 left-0 text-white md:w-64 md:static 
-			${isOpened ? 'w-screen bg-gray-600/75' : 'w-0'}`}
+			bg-gray-600/75 ${isOpened ? 'w-screen' : 'w-0'}`}
 		>
 
 			<div 
@@ -21,7 +21,7 @@ export default function Sidebar({ isOpened, handleCloseSidebarClick, children }:
 				${isOpened ? 'ml-0' : '-ml-96'} md:ml-0`}
 			>
 
-				<div className="flex flex-col w-64 bg-gray-900 p-3">
+				<div className="flex flex-col w-64 bg-gpt-deepgray p-3">
 					
 					<div 
 						className="flex items-center gap-3 p-3 cursor-pointer hover:bg-gray-500/20 

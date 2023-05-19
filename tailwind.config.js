@@ -10,7 +10,8 @@ module.exports = {
     extend: {
       colors: {
 				'gpt-gray': '#343541',
-				'gpt-lightgray': '#40414F'
+				'gpt-lightgray': '#40414F',
+				'gpt-deepgray': '#202123'
 			}
 		}
   },
