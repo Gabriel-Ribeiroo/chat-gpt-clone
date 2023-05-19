@@ -1,4 +1,6 @@
 import SunIcon from './icons/SunIcon'
+import ThunderIcon from './icons/ThunderIcon'
+import DangerIcon from './icons/DangerIcon'
 
 export default function ChatPlaceholder() {
 	return (
@@ -9,7 +11,7 @@ export default function ChatPlaceholder() {
 
 				<div className="flex flex-col gap-5">
 
-					<div className="flex gap-5 justify-center">
+					<div className="flex gap-5 justify-center items-center md:flex-col md:gap-3">
 						<SunIcon width={24} height={24} />
 						<p>Exemplo</p>
 					</div>
@@ -30,8 +32,8 @@ export default function ChatPlaceholder() {
 
 				<div className="flex flex-col gap-5">
 
-					<div className="flex gap-5 justify-center">
-						<SunIcon width={24} height={24} />
+					<div className="flex gap-5 justify-center items-center md:flex-col md:gap-3">
+						<ThunderIcon />
 						<p>Capacidades</p>
 					</div>
 
@@ -51,8 +53,8 @@ export default function ChatPlaceholder() {
 
 				<div className="flex flex-col gap-5">
 
-					<div className="flex gap-5 justify-center">
-						<SunIcon width={24} height={24} />
+					<div className="flex gap-5 justify-center items-center md:flex-col md:gap-3">
+						<DangerIcon />
 						<p>Limitações</p>
 					</div>
 
