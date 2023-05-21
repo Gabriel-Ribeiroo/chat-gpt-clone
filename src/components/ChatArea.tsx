@@ -11,7 +11,7 @@ interface Props {
 
 export default function ChatArea({ chat, isLoading }: Props) {
 	return (
-		<main className={`overflow-y-auto flex-1 ${!chat && 'flex items-center justify-center'}`}>
+		<main className={`overflow-y-auto flex-auto h-0 ${!chat && 'flex items-center justify-center'}`}>
 			{!chat && <ChatPlaceholder />}
 
 			{chat && chat.messages.map(message => (
