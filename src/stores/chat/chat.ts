@@ -1,8 +1,10 @@
 import { create } from 'zustand'
 
-import Chat from '@/types/Chat'
-
 import { v4 as uuidv4 } from 'uuid'
+
+import Chat from '@/types/Chat'
+import Message from '@/types/Message'
+import { openai } from '@/utils/openai'
 
 export interface State {
 	chats: Chat[]
@@ -17,7 +19,7 @@ export interface Actions {
 	createNewChat: () => void 
 	removeAllChats: () => void
 	removeCurrentChat: () => void 
-	getAiResponse: () => void 
+	getAiResponse: (messages: Message[]) => Promise<void> 
 }
 
 const useChat = create<State & Actions>(set => ({
@@ -86,7 +88,7 @@ const useChat = create<State & Actions>(set => ({
 
 		else {
 			set(state => ({
-				chats: state.chats.map(chat => chat.id === currentChatId
+				chats: state.chats.map(chat => chat.id === state.currentChatId
 					? { ...chat, messages: [...chat.messages, {
 						id: uuidv4(),
 						author: 'me',
@@ -100,27 +102,28 @@ const useChat = create<State & Actions>(set => ({
 		}
 	},
 
-	getAiResponse: () => {
-		const currentChatId = useChat.getState().currentChatId
+	getAiResponse: async (messages: Message[]) => {
+		try {
+			const translatedMessages = openai.translateMessages(messages)
 		
-		setTimeout(() => {
-			set((state) => ({
-				chats: state.chats.map(chat => chat.id === currentChatId
-					? { ...chat, messages: [
-							...chat.messages,
-							{
-								id: uuidv4(),
-								author: 'ai',
-								body: 'Olá! Como posso ajudar?'
-							}
-					]}
-					: chat 	
+			const response = await openai.generate(translatedMessages)
+
+			set(state => ({
+				chats: state.chats.map(chat => chat.id === state.currentChatId
+					? { ...chat, messages: [...chat.messages, {
+						id: uuidv4(),
+						author: 'ai',
+						body: response!
+					}]}	
+					: chat
 				),
 
 				aiLoading: false 
 			}))
-		}, 1000)
-	}
+		} catch {
+			return undefined
+		}
+	}		
 }))
 
 export default useChat

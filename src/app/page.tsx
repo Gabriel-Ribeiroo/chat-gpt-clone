@@ -8,13 +8,12 @@ import Sidebar from '@/components/Sidebar'
 import Footer from '@/components/Footer'
 
 import useChat from '@/stores/chat/chat'
+import { selectCurrentChat } from '@/stores/chat/selectors'
 
 export default function Home() {
 	const [getAiResponse, aiLoading] = useChat(state => [ state.getAiResponse, state.aiLoading])
 
-	const removeCurrentChat = useChat(state => state.removeCurrentChat)
-	const chats = useChat(state => state.chats)
-	const currentId = useChat(state => state.currentChatId)
+	const currentChat = useChat(selectCurrentChat)
 
 	const [isSidebarOpened, setIsSidebarOpened] = useState(false)
 	
@@ -24,7 +23,7 @@ export default function Home() {
 
 	useEffect(() => {
 		if (aiLoading)
-			getAiResponse()
+			getAiResponse(currentChat!.messages)
 	}, [aiLoading])
 
 	return (
