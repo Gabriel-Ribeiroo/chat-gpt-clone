@@ -7,20 +7,21 @@ import EditIcon from './icons/EditIcon'
 import CloseIcon from './icons/CloseIcon'
 import CheckIcon from './icons/CheckIcon'
 
+import useChat from '@/stores/chat/chat'
+
 interface Props {
 	active: boolean
 	chat: Chat
-	handleChatDeleteClick: () => void
-	handleChatChangeClick: (id: string) => void 	 
-	handleChatTitleChange: (newTitle: string) => void 
 }
 
-export default function SidebarChatButton(
-	{ active, chat, handleChatDeleteClick, handleChatChangeClick, handleChatTitleChange }: Props
-) {
+export default function SidebarChatButton({ active, chat }: Props) {
 	const [deleting, setDeleting] = useState(false)
 	const [editing, setEditing] = useState(false)
 	const [titleInput, setTitleInput] = useState(chat.title)
+
+	const [removeCurrentChat, changeCurrentChat, changeCurrentChatTitle] = useChat(state => 
+		[state.removeCurrentChat, state.changeCurrentChat, state.changeCurrentChatTitle]
+	)
 
 	const handleTitleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setTitleInput(event.target.value)
@@ -34,27 +35,28 @@ export default function SidebarChatButton(
 	} 
 
 	const handleConfirmButtonClick = () => {
-		if (deleting) 
-			handleChatDeleteClick()
+		if (deleting)
+			return removeCurrentChat() 
 
 		if (titleInput.trim() && titleInput !== chat.title)
-			handleChatTitleChange(titleInput.trim())
-
+			changeCurrentChatTitle(titleInput.trim())
+		
 		setEditing(false)
 	}
 
 	const handleInputEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
 		if (event.code.toLowerCase() === 'enter' && !event.shiftKey) {
 			if (titleInput.trim() && titleInput !== chat.title) {
-				handleChatTitleChange(titleInput)
-				setEditing(false)
+				changeCurrentChatTitle(titleInput)
 			}	
+
+			setEditing(false)
 		}
 	}
-	
+
 	return (
 		<div 
-			onClick={() => handleChatChangeClick(chat.id)}
+			onClick={() => changeCurrentChat(chat.id)}
 			className={`flex items-center gap-3 p-3 text-sm rounded-md cursor-pointer
 			${active ? 'bg-gray-500/20' : 'hover:bg-gray-500/10'}`}
 		>
@@ -111,13 +113,13 @@ export default function SidebarChatButton(
 				{active && (deleting || editing) && 
 					<div className="flex gap-2">
 
-						<div onClick={handleConfirmButtonClick} className="opacity-80 hover:opacity-100 cursor-pointer">
+						<button onClick={handleConfirmButtonClick} className="opacity-80 hover:opacity-100 cursor-pointer">
 							<CheckIcon width={16} height={16} />
-						</div>
+						</button>
 
-						<div onClick={handleCancelButtonClick} className="opacity-80 hover:opacity-100 cursor-pointer">
+						<button onClick={handleCancelButtonClick} className="opacity-80 hover:opacity-100 cursor-pointer">
 							<CloseIcon width={16} height={16} />
-						</div>
+						</button>
 
 					</div>
 				}

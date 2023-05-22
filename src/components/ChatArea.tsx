@@ -2,23 +2,23 @@ import ChatMessageItem from './ChatMessageItem'
 import ChatMessageLoading from './ChatMessageLoading'
 import ChatPlaceholder from './ChatPlaceholder'
 
-import Chat from '@/types/Chat'
+import useChat from '@/stores/chat/chat'
+import { selectCurrentChat } from '@/stores/chat/selectors'
 
-interface Props {
-	chat: Chat | undefined 
-	isLoading: boolean 
-}
-
-export default function ChatArea({ chat, isLoading }: Props) {
+export default function ChatArea() {
+	const [aiLoading] = useChat(state => [state.aiLoading])
+	
+	const currentChat = useChat(selectCurrentChat)
+	
 	return (
-		<main className={`overflow-y-auto flex-auto h-0 ${!chat && 'flex items-center justify-center'}`}>
-			{!chat && <ChatPlaceholder />}
+		<main className={`overflow-y-auto flex-auto h-0 ${!currentChat && 'flex items-center justify-center'}`}>
+			{!currentChat && <ChatPlaceholder />}
 
-			{chat && chat.messages.map(message => (
+			{currentChat && currentChat.messages.map(message => (
 				<ChatMessageItem key={message.id} message={message} />
 			))}
 
-			{isLoading && <ChatMessageLoading />}
+			{aiLoading && <ChatMessageLoading />}
 		</main>
 	)
 }

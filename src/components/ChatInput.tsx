@@ -2,23 +2,22 @@ import { useEffect, useRef, useState } from 'react'
 
 import SendIcon from './icons/SendIcon'
 
-interface Props {
-	disabled: boolean 
-	onSendMessage: (message: string) => void  
-}
+import useChat from '@/stores/chat/chat'
 
-export default function ChatInput({ disabled, onSendMessage }: Props) {
+export default function ChatInput() {
 	const [textAreaData, setTextAreaData] = useState('') 
 	
 	const textArea = useRef<HTMLTextAreaElement>(null)
+
+	const [aiLoading, sendMessage] = useChat(state => [state.aiLoading, state.sendMessage])
 
 	const handleTextAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
 		setTextAreaData(event.target.value)
 	}
 
 	const handleSendMessage = () => {
-		if (!disabled) {
-			onSendMessage(textAreaData.trim())
+		if (!aiLoading) {
+			sendMessage(textAreaData.trim())
 			setTextAreaData('')
 		}  
 	}
@@ -27,7 +26,8 @@ export default function ChatInput({ disabled, onSendMessage }: Props) {
 		if (event.key.toLowerCase() === 'enter' && !event.shiftKey) {
 			event.preventDefault()
 	
-			handleSendMessage()
+			sendMessage(textAreaData)
+			setTextAreaData('')
 		}
 	}
 
