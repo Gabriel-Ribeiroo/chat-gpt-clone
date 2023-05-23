@@ -1,8 +1,8 @@
 import SidebarChatButton from './SidebarChatButton'
 import SidebarButton from './SidebarButton'
-import CloseIcon from './icons/CloseIcon'
-import AddIcon from './icons/AddIcon'
-import TrashIcon from './icons/TrashIcon'
+import CloseIcon from '../icons/CloseIcon'
+import AddIcon from '../icons/AddIcon'
+import TrashIcon from '../icons/TrashIcon'
 
 import useChat from '@/stores/chat/chat'
 

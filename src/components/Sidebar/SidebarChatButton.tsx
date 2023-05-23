@@ -1,11 +1,11 @@
 import { useState } from 'react'
 
 import Chat from '@/types/Chat'
-import ChatIcon from './icons/ChatIcon'
-import TrashIcon from './icons/TrashIcon'
-import EditIcon from './icons/EditIcon'
-import CloseIcon from './icons/CloseIcon'
-import CheckIcon from './icons/CheckIcon'
+import ChatIcon from '../icons/ChatIcon'
+import TrashIcon from '../icons/TrashIcon'
+import EditIcon from '../icons/EditIcon'
+import CloseIcon from '../icons/CloseIcon'
+import CheckIcon from '../icons/CheckIcon'
 
 import useChat from '@/stores/chat/chat'
 

@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react'
 
 import Header from '@/components/Header'
-import ChatArea from '@/components/ChatArea'
-import Sidebar from '@/components/Sidebar'
+import ChatArea from '@/components/chat/ChatArea'
+import Sidebar from '@/components/Sidebar/Sidebar'
 import Footer from '@/components/Footer'
 
 import useChat from '@/stores/chat/chat'

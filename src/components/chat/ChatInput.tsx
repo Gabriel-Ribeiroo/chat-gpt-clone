@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-import SendIcon from './icons/SendIcon'
+import SendIcon from '../icons/SendIcon'
 
 import useChat from '@/stores/chat/chat'
 

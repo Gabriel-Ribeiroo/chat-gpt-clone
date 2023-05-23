@@ -1,6 +1,6 @@
 import Message from '@/types/Message'
-import UserIcon from './icons/UserIcon'
-import GPTIcon from './icons/GptIcon'
+import UserIcon from '../icons/UserIcon'
+import GPTIcon from '../icons/GptIcon'
 
 interface Props {
 	message: Message

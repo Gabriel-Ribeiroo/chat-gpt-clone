@@ -1,4 +1,4 @@
-import ChatInput from './ChatInput'
+import ChatInput from './chat/ChatInput'
 
 export default function Footer() {
 	return (

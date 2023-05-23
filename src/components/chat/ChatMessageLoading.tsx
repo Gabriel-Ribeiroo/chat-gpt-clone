@@ -1,4 +1,4 @@
-import GPTIcon from './icons/GptIcon'
+import GPTIcon from '../icons/GptIcon'
 
 export default function ChatMessageLoading() {
 	return (

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import ChatMessageItem from './ChatMessageItem'
 import ChatMessageLoading from './ChatMessageLoading'
 import ChatPlaceholder from './ChatPlaceholder'
-import ArrowDownIcon from './icons/ArrowDownIcon'
+import ArrowDownIcon from '../icons/ArrowDownIcon'
 
 import useChat from '@/stores/chat/chat'
 import { selectCurrentChat } from '@/stores/chat/selectors'

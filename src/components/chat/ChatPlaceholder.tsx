@@ -1,6 +1,6 @@
-import SunIcon from './icons/SunIcon'
-import ThunderIcon from './icons/ThunderIcon'
-import DangerIcon from './icons/DangerIcon'
+import SunIcon from '../icons/SunIcon'
+import ThunderIcon from '../icons/ThunderIcon'
+import DangerIcon from '../icons/DangerIcon'
 
 export default function ChatPlaceholder() {
 	return (
