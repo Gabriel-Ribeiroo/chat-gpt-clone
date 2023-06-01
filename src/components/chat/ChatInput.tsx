@@ -59,10 +59,10 @@ export default function ChatInput() {
 
 			<button 
 				onClick={handleSendMessage}
-				className={`absolute right-3 rounded p-1 
-				${textAreaData.length ? 'hover:bg-black/20 cursor-pointer' : 'opacity-40 cursor-default'}`}
+				className={`absolute right-3 bottom-2 rounded-md p-2 
+				${textAreaData.length ? 'bg-green-400 cursor-pointer' : 'opacity-40 cursor-default'}`}
 			>
-				<SendIcon width={14} height={14} />
+				<SendIcon width={16} height={16} />
 			</button>
 
 		</div>
