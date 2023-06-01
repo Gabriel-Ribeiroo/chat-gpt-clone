@@ -1,17 +1,13 @@
 export default function SendIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      viewBox="0 0 24 24"
-      height="1em"
-      width="1em"
-      {...props}
-    >
-      <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
-    </svg>
-  );
+    <svg 
+			xmlns="http://www.w3.org/2000/svg" 
+			viewBox="0 0 16 16" 
+			fill="none" 
+			className="h-4 w-4" 
+			strokeWidth="2"
+		>
+			<path d="M.5 1.163A1 1 0 0 1 1.97.28l12.868 6.837a1 1 0 0 1 0 1.766L1.969 15.72A1 1 0 0 1 .5 14.836V10.33a1 1 0 0 1 .816-.983L8.5 8 1.316 6.653A1 1 0 0 1 .5 5.67V1.163Z" fill="currentColor"></path>
+		</svg>
+  )
 }
