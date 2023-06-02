@@ -44,7 +44,7 @@ export default function ChatInput() {
 	return (
 		<div 
 			className={`relative flex items-end border border-gray-800/50 bg-gpt-lightgray
-			rounded-md p-3 pr-0 text-white shadow-lg ${'' && 'opacity-50'}`}
+			rounded-xl p-3 md:p-4 pr-0 text-white shadow-lg ${aiLoading && 'opacity-50'}`}
 		>
 
 			<textarea
@@ -59,7 +59,7 @@ export default function ChatInput() {
 
 			<button 
 				onClick={handleSendMessage}
-				className={`absolute right-3 bottom-2 rounded-md p-2 
+				className={`absolute right-3 bottom-2 md:bottom-3 rounded-md p-2 
 				${textAreaData.length ? 'bg-green-400 cursor-pointer' : 'opacity-40 cursor-default'}`}
 			>
 				<SendIcon width={16} height={16} />
