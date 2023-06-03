@@ -23,7 +23,7 @@ export default function ChatInput() {
 	}
 
 	const handleTextAreaKeyUp = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-		if (event.key.toLowerCase() === 'enter' && !event.shiftKey) {
+		if (event.key.toLowerCase() === 'enter' && !event.shiftKey && !aiLoading) {
 			event.preventDefault()
 	
 			sendMessage(textAreaData)
