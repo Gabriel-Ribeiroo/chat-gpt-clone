@@ -19,9 +19,7 @@ const useSidebar = create<State & Action>(set => ({
 	},
 
 	openSidebar: () => {
-		set(state => ({
-			isOpened: { mobile: true, desktop: true }			
-		}))
+		set({ isOpened: { mobile: true, desktop: true } })
 	},
 
 	closeSidebar: () => {
