@@ -1,13 +1,15 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 
 import Header from '@/components/Header'
 import ChatArea from '@/components/chat/ChatArea'
 import Sidebar from '@/components/Sidebar/Sidebar'
 import Footer from '@/components/Footer'
+import SidebarIcon from '@/components/icons/SidebarIcon'
 
 import useChat from '@/stores/chat/chat'
+import useSidebar from '@/stores/sidebar/sidebar'
 import { selectCurrentChat } from '@/stores/chat/selectors'
 
 export default function Home() {
@@ -15,12 +17,8 @@ export default function Home() {
 
 	const currentChat = useChat(selectCurrentChat)
 
-	const [isSidebarOpened, setIsSidebarOpened] = useState(false)
-	
-	const handleCloseSidebarClick = () => setIsSidebarOpened(false)
-	
-	const handleOpenSidebarClick = () => setIsSidebarOpened(true)
-
+	const openSidebar = useSidebar(state => state.openSidebar)
+ 
 	useEffect(() => {
 		if (aiLoading)
 			getAiResponse(currentChat!.messages)
@@ -28,10 +26,18 @@ export default function Home() {
 
 	return (
 		<div className="flex min-h-screen bg-gpt-gray">
-			<Sidebar isOpened={isSidebarOpened} handleCloseSidebarClick={handleCloseSidebarClick} />
+			<div 
+				onClick={openSidebar}
+				className="fixed top-2 left-2 p-3.5 border border-white/20 
+				rounded-md text-white hover:bg-gray-500/20 hidden md:block"
+			>
+				<SidebarIcon />
+			</div>
+			
+			<Sidebar />
 			
 			<div className="flex flex-col w-full">
-				<Header handleOpenSidebarClick={handleOpenSidebarClick} />
+				<Header />
 
 				<ChatArea />
 
