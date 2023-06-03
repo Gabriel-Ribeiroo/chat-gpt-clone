@@ -7,6 +7,7 @@ import { selectCurrentChat } from '@/stores/chat/selectors'
 
 export default function Header() {
 	const currentChat = useChat(selectCurrentChat)
+	const createNewChat = useChat(state => state.createNewChat) 
 	
 	const openSidebar = useSidebar(state => state.openSidebar)
 
@@ -21,7 +22,7 @@ export default function Header() {
 
 			<p className="mx-2 truncate">{currentChat?.title || 'Nova Conversa'}</p>
 
-			<div>
+			<div onClick={createNewChat}>
 				<AddIcon width={24} height={24} />
 			</div>
 		</header>
