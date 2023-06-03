@@ -17,8 +17,8 @@ export default function Sidebar() {
 
 	return (
 		<aside 
-			className={`fixed top-0 bottom-0 left-0 text-white md:static bg-gray-600/75 z-10
-			${isOpened.mobile ? 'w-screen' : 'w-0'} ${isOpened.desktop ? 'md:w-64' : 'md:w-0'}`}
+			className={`fixed top-0 bottom-0 left-0 text-white bg-gray-600/75 z-10 md:bg-transparent md:static 
+			transition-all ${isOpened.mobile ? 'w-screen' : 'w-0'} ${isOpened.desktop ? 'md:w-64' : 'md:w-0'}`}
 		>
 
 			<div 
