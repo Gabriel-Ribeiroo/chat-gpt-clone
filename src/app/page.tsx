@@ -28,6 +28,7 @@ export default function Home() {
 		<div className="flex min-h-screen bg-gpt-gray">
 			<div 
 				onClick={openSidebar}
+				aria-label="Show sidebar"
 				className="fixed top-2 left-2 p-3.5 border border-white/20 cursor-pointer
 				rounded-md text-white hover:bg-gray-500/20 hidden md:block z-10 bg-gpt-gray"
 			>

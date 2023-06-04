@@ -59,6 +59,7 @@ export default function ChatInput() {
 
 			<button 
 				onClick={handleSendMessage}
+				aria-label="Send question"
 				className={`absolute right-3 bottom-2 md:bottom-3 rounded-md p-2 
 				${textAreaData.length ? 'bg-green-400 cursor-pointer' : 'opacity-40 cursor-default'}`}
 			>
