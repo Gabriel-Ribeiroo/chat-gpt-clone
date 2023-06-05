@@ -1,15 +1,18 @@
+'use client'
+
 import SidebarChatButton from './SidebarChatButton'
+import ToggleSidebarButton from './ToggleSidebarButton'
 import SidebarButton from './SidebarButton'
 import CloseIcon from '../icons/CloseIcon'
 import AddIcon from '../icons/AddIcon'
 import TrashIcon from '../icons/TrashIcon'
-import SidebarIcon from '../icons/SidebarIcon'
+
 
 import useChat from '@/stores/chat/chat'
 import useSidebar from '@/stores/sidebar/sidebar'
 
 export default function Sidebar() {
-	const [isOpened, closeSidebar] = useSidebar(state => [state.isOpened, state.closeSidebar])
+	const [isOpened, toggleSidebar] = useSidebar(state => [state.isOpened, state.toggleSidebar])
 	
 	const [chats, currentChatId, createNewChat, removeAllChats] = useChat(state => 
 		[state.chats, state.currentChatId, state.createNewChat, state.removeAllChats]
@@ -37,14 +40,7 @@ export default function Sidebar() {
 							<p>Nova Conversa</p>
 						</button>
 
-						<button 
-							onClick={closeSidebar}
-							aria-label="Hide sidebar"
-							className="p-3.5 border border-white/20 transition-all duration-200
-							rounded-md cursor-pointer hover:bg-gray-500/20 hidden md:block"
-						>
-							<SidebarIcon />
-						</button>
+						<ToggleSidebarButton aria-label="Hide Sidebar" extraStyles="bg-gpt-deepgray" />
 					</div>
 
 					<nav className="flex-1 mt-2 overflow-y-auto">
@@ -67,7 +63,7 @@ export default function Sidebar() {
 				<button 
 					className="flex justify-center items-center w-10 h-10 mt-2 cursor-pointer md:hidden"
 					aria-label="Hide sidebar"
-					onClick={closeSidebar}
+					onClick={toggleSidebar}
 				>
 					<CloseIcon width={24} height={24} />
 				</button>

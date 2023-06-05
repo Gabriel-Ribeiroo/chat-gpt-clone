@@ -8,8 +8,7 @@ interface State {
 }
 
 interface Action {
-	openSidebar: () => void 
-	closeSidebar: () => void 
+	toggleSidebar: () => void 
 }
 
 const useSidebar = create<State & Action>(set => ({
@@ -18,12 +17,13 @@ const useSidebar = create<State & Action>(set => ({
 		desktop: true
 	},
 
-	openSidebar: () => {
-		set({ isOpened: { mobile: true, desktop: true } })
-	},
-
-	closeSidebar: () => {
-		set({ isOpened: { mobile: false, desktop: false } })		
+	toggleSidebar: () => {
+		set(({ isOpened }) => ({
+			isOpened: {
+				mobile: !isOpened.mobile,
+				desktop: !isOpened.desktop
+			}
+		}))
 	}
 }))
 
