@@ -1,3 +1,7 @@
+'use client'
+
+import { useRouter } from 'next/navigation'
+
 import { useState } from 'react'
 
 import Chat from '@/types/Chat'
@@ -15,6 +19,8 @@ interface Props {
 }
 
 export default function SidebarChatButton({ active, chat }: Props) {
+	const router = useRouter()
+	
 	const [deleting, setDeleting] = useState(false)
 	const [editing, setEditing] = useState(false)
 	const [titleInput, setTitleInput] = useState(chat.title)
@@ -56,7 +62,7 @@ export default function SidebarChatButton({ active, chat }: Props) {
 
 	return (
 		<div 
-			onClick={() => changeCurrentChat(chat.id)}
+			onClick={() => router.push(chat.id)}
 			className={`flex items-center gap-3 p-3 text-sm rounded-md cursor-pointer
 			${active ? 'bg-gray-500/20' : 'hover:bg-gray-500/10'}`}
 		>

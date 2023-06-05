@@ -1,5 +1,11 @@
-import '@/styles/globals.css'
 import { Inter } from 'next/font/google'
+
+import Sidebar from '@/components/Sidebar/Sidebar'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import ToggleSidebarButton from '@/components/Sidebar/ToggleSidebarButton'
+
+import '@/styles/globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,7 +21,19 @@ interface Props {
 export default function RootLayout({ children }: Props) {
   return (
     <html lang="pt-br">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+				<div className="flex min-h-screen bg-gpt-gray">
+					<Sidebar />
+
+					<div className="flex flex-col flex-1">
+						<Header />
+						{children}
+						<Footer />
+					</div>
+
+				<ToggleSidebarButton aria-label="Show Sidebar" extraStyles="fixed top-2 left-2 bg-gpt-gray" />
+				</div>
+			</body>
     </html>
   )
 }
