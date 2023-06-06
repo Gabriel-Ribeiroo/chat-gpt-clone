@@ -1,5 +1,7 @@
 'use client'
 
+import { useRouter, usePathname } from 'next/navigation'
+
 import SidebarChatButton from './SidebarChatButton'
 import ToggleSidebarButton from './ToggleSidebarButton'
 import SidebarButton from './SidebarButton'
@@ -7,16 +9,28 @@ import CloseIcon from '../icons/CloseIcon'
 import AddIcon from '../icons/AddIcon'
 import TrashIcon from '../icons/TrashIcon'
 
-
 import useChat from '@/stores/chat/chat'
 import useSidebar from '@/stores/sidebar/sidebar'
 
 export default function Sidebar() {
+	const router = useRouter() 
+	const pathname = usePathname() 
+	
 	const [isOpened, toggleSidebar] = useSidebar(state => [state.isOpened, state.toggleSidebar])
 	
-	const [chats, currentChatId, createNewChat, removeAllChats] = useChat(state => 
-		[state.chats, state.currentChatId, state.createNewChat, state.removeAllChats]
+	const [chats, currentChatId, createNewChat, removeAllChats, aiLoading] = useChat(state => 
+		[state.chats, state.currentChatId, state.createNewChat, state.removeAllChats, state.aiLoading]
 	)
+
+	const handleAllChatsDeletion = () => {
+		pathname !== '/' && router.push('/')
+		removeAllChats() 
+	}
+
+	const handleNewChatCreation = () => {
+		pathname !== '/' && router.push('/')
+		createNewChat()
+	}
 
 	return (
 		<aside 
@@ -31,7 +45,7 @@ export default function Sidebar() {
 					
 					<div className="flex gap-2">
 						<button 
-							onClick={createNewChat}
+							onClick={handleNewChatCreation}
 							aria-label="Create new chat"
 							className="flex flex-1 items-center gap-3 p-3 cursor-pointer hover:bg-gray-500/20 
 							rounded-md border border-white/20 text-sm transition-all duration-200"
@@ -53,7 +67,7 @@ export default function Sidebar() {
 						<SidebarButton 
 							aria-label="Deletar Conversas" 
 							icon={<TrashIcon />} 
-							onClick={removeAllChats}
+							onClick={handleAllChatsDeletion}
 						>
 							Limpar todas as Conversas
 						</SidebarButton> 
