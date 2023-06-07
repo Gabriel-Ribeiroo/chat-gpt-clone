@@ -1,3 +1,7 @@
+'use client'
+
+import { useRouter } from 'next/navigation'
+
 import { useEffect, useRef, useState } from 'react'
 
 import SendIcon from '../icons/SendIcon'
@@ -5,21 +9,21 @@ import SendIcon from '../icons/SendIcon'
 import useChat from '@/stores/chat/chat'
 
 export default function ChatInput() {
-	const [textAreaData, setTextAreaData] = useState('') 
+	const router = useRouter()
 	
+	const [textAreaData, setTextAreaData] = useState('') 
+
 	const textArea = useRef<HTMLTextAreaElement>(null)
 
-	const [aiLoading, sendMessage] = useChat(state => [state.aiLoading, state.sendMessage])
-
-	const handleTextAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-		setTextAreaData(event.target.value)
-	}
+	const [aiLoading, sendMessage, currentChatId] = useChat(state => 
+		[state.aiLoading, state.sendMessage, state.currentChatId]
+	)
 
 	const handleSendMessage = () => {
 		if (!aiLoading) {
 			sendMessage(textAreaData.trim())
 			setTextAreaData('')
-		}  
+		} 
 	}
 
 	const handleTextAreaKeyUp = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -32,6 +36,11 @@ export default function ChatInput() {
 	}
 
 	useEffect(() => {
+		if (currentChatId)
+			router.push(currentChatId)
+	}, [currentChatId])
+
+	useEffect(() => {
 		if (textArea.current) {
 			textArea.current.style.height = '0'
 			
@@ -40,7 +49,7 @@ export default function ChatInput() {
 			textArea.current.style.height = `${scrollHeight}px`
 		}
 	}, [textAreaData])
-	
+
 	return (
 		<div 
 			className={`relative flex items-end border border-gray-800/50 bg-gpt-lightgray
@@ -51,7 +60,7 @@ export default function ChatInput() {
 				className="w-full bg-transparent resize-none outline-none h-7 max-h-48"
 				placeholder="Digite uma mensagem"
 				onKeyDown={handleTextAreaKeyUp}
-				onChange={handleTextAreaChange}
+				onChange={event => setTextAreaData(event.target.value)}
 				value={textAreaData}
 				ref={textArea}
 			>
