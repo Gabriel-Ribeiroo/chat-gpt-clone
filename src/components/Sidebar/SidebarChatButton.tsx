@@ -1,6 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 import { useState } from 'react'
 
@@ -19,8 +20,6 @@ interface Props {
 }
 
 export default function SidebarChatButton({ active, chat }: Props) {
-	const router = useRouter()
-	
 	const [deleting, setDeleting] = useState(false)
 	const [editing, setEditing] = useState(false)
 	const [titleInput, setTitleInput] = useState(chat.title)
@@ -28,11 +27,7 @@ export default function SidebarChatButton({ active, chat }: Props) {
 	const [removeCurrentChat, changeCurrentChat, changeCurrentChatTitle] = useChat(state => 
 		[state.removeCurrentChat, state.changeCurrentChat, state.changeCurrentChatTitle]
 	)
-
-	const handleTitleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setTitleInput(event.target.value)
-	}
-
+	
 	const handleCancelButtonClick = () => {
 		if (editing) 
 			return setEditing(false)
@@ -41,8 +36,9 @@ export default function SidebarChatButton({ active, chat }: Props) {
 	} 
 
 	const handleConfirmButtonClick = () => {
-		if (deleting)
+		if (deleting) {
 			return removeCurrentChat() 
+		}
 
 		if (titleInput.trim() && titleInput !== chat.title)
 			changeCurrentChatTitle(titleInput.trim())
@@ -61,16 +57,17 @@ export default function SidebarChatButton({ active, chat }: Props) {
 	}
 
 	return (
-		<div 
-			onClick={() => router.push(chat.id)}
+		<Link 
+			href={chat.id}
+			onClick={() => changeCurrentChat(chat.id)}
 			className={`flex items-center gap-3 p-3 text-sm rounded-md cursor-pointer
 			${active ? 'bg-gray-500/20' : 'hover:bg-gray-500/10'}`}
 		>
 
 			<div>
-				{!deleting && <ChatIcon width={15} height={15} />}
+				{!deleting && <ChatIcon width={14} height={14} />}
 
-				{deleting && <TrashIcon width={15} height={15} />}
+				{deleting && <TrashIcon width={14} height={14} />}
 			</div>
 
 			<div className="flex-1 overflow-x-hidden">
@@ -79,17 +76,15 @@ export default function SidebarChatButton({ active, chat }: Props) {
 					<input 
 						className="text-sm bg-transparent w-full outline-none border border-blue-500"
 						type="text"
-						onKeyDown={handleInputEnter}
 						value={titleInput} 
-						onChange={handleTitleInputChange} 
+						onChange={event => setTitleInput(event.target.value)} 
+						onKeyDown={handleInputEnter}
 					/>
 				}
 
 				{!editing && 
 					<div className="border border-transparent">
-						{!deleting && <p>{chat.title}</p>}
-						
-						{deleting && <p>Delete "{chat.title}"</p>}
+						<p>{chat.title}</p>
 					</div>
 				}
 
@@ -103,14 +98,14 @@ export default function SidebarChatButton({ active, chat }: Props) {
 							onClick={() => setEditing(true)}
 							className="opacity-80 hover:opacity-100 cursor-pointer"
 						>
-							<EditIcon width={16} height={16} />
+							<EditIcon width={14} height={14} />
 						</div>
 
 						<div 
 							onClick={() => setDeleting(true)}  
 							className="opacity-80 hover:opacity-100 cursor-pointer"
 						>
-							<TrashIcon width={16} height={16} />
+							<TrashIcon width={14} height={14} />
 						</div>
 
 					</div>	
@@ -130,6 +125,6 @@ export default function SidebarChatButton({ active, chat }: Props) {
 					</div>
 				}
 			</div>
-		</div>
+		</Link>
 	)	
 }
