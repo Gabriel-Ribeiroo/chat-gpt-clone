@@ -1,6 +1,8 @@
 'use client'
 
-import { notFound } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
+
+import { useEffect } from 'react'
 
 import ChatMessageItem from '@/components/chat/ChatMessageItem'
 import ChatMessageLoading from '@/components/chat/ChatMessageLoading'
@@ -14,12 +16,24 @@ interface Props {
 	}
 }
 
-export default function CurrentChat ({ params: { chatId } }: Props) {
+export default function CurrentChat({ params: { chatId } }: Props) {
+	const router = useRouter() 
+	const pathname = usePathname() 
+	
 	const currentChat = useChat(selectCurrentChat)
-	const [currentChatId, aiLoading] = useChat(state => [state.currentChatId, state.aiLoading])
+	const [currentChatId, aiLoading, getAiResponse] = useChat(state => 
+		 [state.currentChatId, state.aiLoading, state.getAiResponse]
+	)
 
-	if (currentChatId !== chatId)
-		notFound()
+	useEffect(() => {
+		if (pathname.slice(1) !== currentChatId)
+			router.push('/')
+	}, [])
+
+	useEffect(() => {
+		if (aiLoading) 
+			getAiResponse(currentChat!.messages)
+	}, [aiLoading])
 
 	return (
 		<main className="flex-1">
