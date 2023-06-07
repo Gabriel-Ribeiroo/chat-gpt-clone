@@ -1,5 +1,7 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
+
 import MenuIcon from './icons/MenuIcon'
 import AddIcon from './icons/AddIcon'
 
@@ -8,10 +10,17 @@ import useSidebar from '@/stores/sidebar/sidebar'
 import { selectCurrentChat } from '@/stores/chat/selectors'
 
 export default function Header() {
+	const router = useRouter()
+	
 	const createNewChat = useChat(state => state.createNewChat) 
 	const currentChat = useChat(selectCurrentChat)
 	
 	const toggleSidebar = useSidebar(state => state.toggleSidebar)
+
+	const handleNewChatCreation = () => {
+		router.push('/')
+		createNewChat()
+	}
 
 	return (
 		<header 
@@ -24,7 +33,7 @@ export default function Header() {
 
 			<p className="mx-2 truncate">{currentChat?.title || 'Nova Conversa'}</p>
 
-			<div onClick={createNewChat}>
+			<div onClick={handleNewChatCreation}>
 				<AddIcon width={24} height={24} />
 			</div>
 		</header>
