@@ -9,7 +9,7 @@ interface Props {
 export default function ChatMessageItem({ message }: Props) {
 	return (
 		<div 
-			className={`overflow-x-hidden py-7 px-4 text-white last:mb-4 
+			className={`overflow-x-hidden py-7 px-4 text-white
 			${message.author === 'ai' ? 'bg-gray-600/50': 'border-b border-b-black/30'}`}
 		>
 
