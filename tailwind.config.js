@@ -11,7 +11,8 @@ module.exports = {
       colors: {
 				'gpt-gray': '#343541',
 				'gpt-lightgray': '#40414F',
-				'gpt-deepgray': '#202123'
+				'gpt-deepgray': '#202123',
+				'gpt-green': '#19c37d'
 			},
 
 			keyframes: {
