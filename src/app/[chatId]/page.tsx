@@ -1,8 +1,8 @@
 'use client'
 
-import { useRouter, usePathname } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 import ChatMessageItem from '@/components/chat/ChatMessageItem'
 import ChatMessageLoading from '@/components/chat/ChatMessageLoading'
@@ -18,15 +18,17 @@ interface Props {
 
 export default function CurrentChat({ params: { chatId } }: Props) {
 	const router = useRouter() 
-	const pathname = usePathname() 
-	
-	const currentChat = useChat(selectCurrentChat)
+
 	const [currentChatId, aiLoading, getAiResponse] = useChat(state => 
 		 [state.currentChatId, state.aiLoading, state.getAiResponse]
 	)
+	
+	const currentChat = useChat(selectCurrentChat)
 
+	const main = useRef<HTMLDivElement>(null)
+	
 	useEffect(() => {
-		if (pathname.slice(1) !== currentChatId)
+		if (chatId !== currentChatId)
 			router.push('/')
 	}, [])
 
@@ -36,11 +38,14 @@ export default function CurrentChat({ params: { chatId } }: Props) {
 	}, [aiLoading])
 
 	return (
-		<main className="flex-1">
+		<main 
+			ref={main} 
+			className="flex-1 overflow-y-auto scroll-smooth"
+		>
 			{currentChat?.messages.map(message => (
 				<ChatMessageItem key={message.id} message={message} />
 			))}
-
+			
 			{aiLoading && <ChatMessageLoading />}
 		</main>
 	)
