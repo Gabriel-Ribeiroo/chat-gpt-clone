@@ -25,7 +25,7 @@ export default function Header() {
 	return (
 		<header 
 			className="flex justify-between items-center w-full 
-			border-b border-b-gray-600 p-2 md:hidden text-white"
+			border-b border-b-gray-600 p-2 md:hidden text-white bg-gpt-gray"
 		>
 			<div onClick={toggleSidebar}>
 				<MenuIcon width={24} height={24} />

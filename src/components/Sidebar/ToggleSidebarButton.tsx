@@ -15,8 +15,8 @@ export default function ToggleSidebarButton({ extraStyles, ...rest }: Props) {
 		<button
 			{ ...rest }
 			onClick={toggleSidebar}
-			className={`${extraStyles} p-3.5 border border-white/20 cursor-pointer
-			rounded-md text-white hover:bg-gray-500/20 hidden md:block`}		
+			className={`p-3.5 border dark:border-white/20 dark:text-white cursor-pointer rounded-md
+		 	hover:bg-gray-500/20 dark:hover:bg-gray-500/20 hidden md:block ${extraStyles}`}		
 		>
 			<SidebarIcon />
 		</button>

@@ -8,6 +8,10 @@ import SidebarButton from './SidebarButton'
 import CloseIcon from '../icons/CloseIcon'
 import AddIcon from '../icons/AddIcon'
 import TrashIcon from '../icons/TrashIcon'
+import MoonIcon from '../icons/MoonIcon'
+import SunIcon from '../icons/SunIcon'
+
+import { useTheme } from 'next-themes'
 
 import useChat from '@/stores/chat/chat'
 import useSidebar from '@/stores/sidebar/sidebar'
@@ -21,6 +25,8 @@ export default function Sidebar() {
 	const [chats, currentChatId, createNewChat, removeAllChats, aiLoading] = useChat(state => 
 		[state.chats, state.currentChatId, state.createNewChat, state.removeAllChats, state.aiLoading]
 	)
+
+	const { theme, setTheme } = useTheme()
 
 	const handleAllChatsDeletion = () => {
 		pathname !== '/' && router.push('/')
@@ -54,7 +60,7 @@ export default function Sidebar() {
 							<p>Nova Conversa</p>
 						</button>
 
-						<ToggleSidebarButton aria-label="Hide Sidebar" extraStyles="bg-gpt-deepgray" />
+						<ToggleSidebarButton aria-label="Hide Sidebar" extraStyles="bg-gpt-deepgrey border-white/20" />
 					</div>
 
 					<nav className="flex-1 mt-2 overflow-y-auto">
@@ -64,6 +70,16 @@ export default function Sidebar() {
 					</nav>
 
 					<div className="pt-2 border-t border-gray-700">
+						<SidebarButton
+							onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+							icon={theme === 'dark' 
+								? <MoonIcon width={18} height={18} />
+								: <SunIcon width={18} height={18} />
+							}
+						>
+							{theme === 'dark' ? 'Modo Escuro' : 'Modo Claro'}							
+						</SidebarButton>
+						
 						<SidebarButton 
 							aria-label="Deletar Conversas" 
 							icon={<TrashIcon />} 

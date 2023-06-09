@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import Sidebar from '@/components/Sidebar/Sidebar'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import Provider from '@/components/Provider'
 import ToggleSidebarButton from '@/components/Sidebar/ToggleSidebarButton'
 
 import '@/styles/globals.css'
@@ -22,17 +23,22 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang="pt-br">
       <body className={inter.className}>
-				<div className="flex h-screen bg-gpt-gray max-h-screen">
-					<Sidebar />
+				<Provider>
+					<div className="flex h-screen dark:bg-gpt-gray max-h-screen">
+						<Sidebar />
 
-					<div className="flex flex-col flex-1">
-						<Header />
+						<div className="flex flex-col flex-1">
+							<Header />
 							{children}
-						<Footer />
-					</div>
+							<Footer />
+						</div>
 
-				<ToggleSidebarButton aria-label="Show Sidebar" extraStyles="fixed top-2 left-2 bg-gpt-gray" />
-				</div>
+						<ToggleSidebarButton 
+							aria-label="Show Sidebar" 
+							extraStyles="fixed top-2 left-2 text-black border-black/20 bg-white dark:bg-gpt-gray" 
+						/>
+					</div>
+				</Provider>
 			</body>
     </html>
   )
