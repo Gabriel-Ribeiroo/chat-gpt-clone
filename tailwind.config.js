@@ -6,9 +6,11 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+	darkMode: 'class',
+
   theme: {
     extend: {
-      colors: {
+			colors: {
 				'gpt-gray': '#343541',
 				'gpt-lightgray': '#40414F',
 				'gpt-deepgray': '#202123',
@@ -27,5 +29,6 @@ module.exports = {
 			}
 		}
   },
+	
   plugins: []
 }
